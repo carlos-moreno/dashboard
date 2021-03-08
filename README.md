@@ -1,2 +1,3 @@
 # Dashboard
-Dashboard de monitoramento com dados de origem da aplicação Netdata
+
+Dashboard para monitoramento do servidor com dados de origem da aplicação Netdata.
