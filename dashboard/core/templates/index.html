@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"
             integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg=="
             crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 <nav class="mt-2 text-center">
@@ -32,6 +33,18 @@
         <div class="col-4">
             <h3 class="ml-5 mt-5 font-weight-bold text-primary">Carga Atual do Sistema</h3>
             <canvas id="load"></canvas>
+        </div>
+        <div class="col-6">
+            <h3 class="ml-5 mt-3 font-weight-bold text-primary">Pacotes Recebidos/Enviados - <small><b>kilobits/s</b></small></h3>
+            <div class="row">
+                <div class="col-3">
+                    <div id="recebido" style="width: 400px; height: 120px;"></div>
+                </div>
+                <div class="col-3">
+                    <div id="enviado" style="width: 400px; height: 120px;"></div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
@@ -111,5 +124,53 @@
         }
     });
 </script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Recebido', {{ recebido|safe }}],
+        ]);
+
+        var options = {
+          width: 800, height: 260,
+          greenColor: '#90EE90',
+          greenFrom:0, greenTo: 1000,
+          minorTicks: 5,
+          max: 1000
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('recebido'));
+
+        chart.draw(data, options);
+      }
+    </script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Enviado', {{ enviado|safe }}],
+        ]);
+
+        var options = {
+          width: 800, height: 260,
+          redColor: '#FFB6C1',
+          redFrom:0, redTo: 1000,
+          minorTicks: 5,
+          max: 1000
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('enviado'));
+
+        chart.draw(data, options);
+      }
+    </script>
 </body>
 </html>
