@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from decouple import config
 import requests
+from decouple import config
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 
+@login_required(login_url='/accounts/login/')
 def home(request):
     disk = requests.get(config("API") + 'disk_space._')
     load = requests.get(config("API") + 'system.load')

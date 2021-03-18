@@ -11,6 +11,9 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 
 [dev-packages]
+flake8 = "*"
+pytest-django = "*"
+model-bakery = "*"
 
 [requires]
 python_version = "3.8"
